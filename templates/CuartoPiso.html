@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IOT-FIEE</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="icon" href="../static/img/ICONO_FIEE.png" type="image/png">
+
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Theme -->
+    <link href="../static/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="../static/css/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Estilos personalizados -->
+    <style>
+        .control-box {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            margin-top: 10px;
+        }
+
+        .form-control-range {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body class="skin-blue">
+    <div class="wrapper">
+        <header class="main-header">
+            <a href="https://proyecto-iot-fiee.azurewebsites.net/inicio" class="logo"><b>Domótica</b>FIEE</a>
+
+            <!-- Navegación de cabecera -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Alternar navegación</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Menú de notificaciones -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">Tienes 10 notificaciones</li>
+                                <li>
+                                    <ul class="menu">
+                                        <li><a href="#"><i class="fa fa-users text-aqua"></i> 5 nuevos miembros hoy</a></li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">Ver todas</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Menú de usuario -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="../static/img/USUARIO_FIEE.jpg" class="user-image" alt="User Image" />
+                                <span class="hidden-xs">Edificio FIEE</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- Imagen del usuario -->
+                                <li class="user-header">
+                                    <img src="../static/img/USUARIO_FIEE.jpg" class="img-circle" alt="User Image" />
+                                    <p>
+                                        Edificio FIEE
+                                        <small>Desde abril 2024</small>
+                                    </p>
+                                </li>
+                                <!-- Opciones del menú de usuario -->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">Cerrar sesión</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Menú lateral -->
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <!-- Panel del usuario -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="../static/img/USUARIO_FIEE.jpg" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p>Edificio FIEE</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+                    </div>
+                </div>
+
+                <!-- Formulario de búsqueda -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
+                        <span class="input-group-btn">
+                            <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+
+                 <!-- Menú lateral -->
+                 <ul class="sidebar-menu">
+                    <li class="header">NAVEGACIÓN PRINCIPAL</li>
+                    <li><a href="https://proyecto-iot-fiee.azurewebsites.net/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                    <li class="treeview active">
+                        <a href="#"><i class="fa fa-pie-chart"></i> <span>Pisos</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="https://proyecto-iot-fiee.azurewebsites.net/PrimerPiso"><i class="fa fa-circle-o"></i>Primer Piso</a></li>
+                            <li class="active"><a href="https://proyecto-iot-fiee.azurewebsites.net/SegundoPiso"><i class="fa fa-circle-o"></i>Segundo Piso</a></li>
+                            <li><a href="https://proyecto-iot-fiee.azurewebsites.net/TercerPiso"><i class="fa fa-circle-o"></i>Tercer Piso</a></li>
+                            <li><a href="https://proyecto-iot-fiee.azurewebsites.net/CuartoPiso"><i class="fa fa-circle-o"></i>Cuarto Piso</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="https://proyecto-iot-fiee.azurewebsites.net/Escenas"><i class="fa fa-laptop"></i> <span>Escenas</span></a></li>
+                    <li><a href="https://proyecto-iot-fiee.azurewebsites.net//calendar"><i class="fa fa-calendar"></i> <span>Calendario</span><small class="label pull-right bg-red">3</small></a></li>
+                    <!-- Sección de etiquetas -->
+                    <li class="header">ETIQUETAS</li>
+                    <li><a href="#"><i class="fa fa-circle-o text-danger"></i> Importante</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-warning"></i> Urgente</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o text-info"></i> Información</a></li>
+
+                </ul>
+            </section>
+        </aside>
+
+ <!-- Contenido principal para el Cuarto Piso -->
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>SECCIÓN DE CONTROL CUARTO PISO</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">Cuarto Piso</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="control-section">
+            <!-- Sensor de Proximidad (HC) -->
+            <div class="control-box">
+                <h4><i class="fa fa-rss" aria-hidden="true"></i> Sensor de Proximidad (HC)</h4>
+                <p><strong>Distancia:</strong> <span id="proximidad-status">Cargando...</span></p>
+                <div class="progress">
+                    <div id="proximidad-bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor de Humedad -->
+            <div class="control-box">
+                <h4><i class="fa fa-tint" aria-hidden="true"></i> Sensor de Humedad</h4>
+                <p><strong>Nivel de Humedad:</strong> <span id="humedad-status">Cargando...</span></p>
+                <div class="progress">
+                    <div id="humedad-bar" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensor PIR -->
+            <div class="control-box">
+                <h4><i class="fa fa-eye" aria-hidden="true"></i> Sensor PIR</h4>
+                <p><strong>Estado:</strong> <span id="pir-status">Cargando...</span></p>
+                <div id="pir-indicator" class="alert alert-info" role="alert">
+                    Esperando detección de movimiento...
+                </div>
+            </div>
+
+            <!-- Sensor LDR -->
+            <div class="control-box">
+                <h4><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Sensor LDR</h4>
+                <p><strong>Estado de Luz:</strong> <span id="ldr-status">Cargando...</span></p>
+                <div class="progress">
+                    <div id="ldr-bar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        0%
+                    </div>
+                </div>
+            </div>
+            <!-- Control de LED RGB 1 -->
+<div class="control-box">
+    <h4>Control de LED RGB 1</h4>
+    <!-- Switch para encender/apagar LED RGB 1 -->
+    <label for="rgb1-switch">Encender LED RGB 1:</label>
+    <label class="switch">
+        <input type="checkbox" id="rgb1-switch" />
+        <span class="slider round"></span>
+    </label>
+    <!-- Selector de color para LED RGB 1 -->
+    <input type="color" id="rgb1-color-picker" class="form-control" value="#ff0000">
+    <p id="rgb1-status">Estado del LED RGB 1: Apagado</p>
+</div>
+
+<!-- Control de LED RGB 2 -->
+<div class="control-box">
+    <h4>Control de LED RGB 2</h4>
+    <!-- Switch para encender/apagar LED RGB 2 -->
+    <label for="rgb2-switch">Encender LED RGB 2:</label>
+    <label class="switch">
+        <input type="checkbox" id="rgb2-switch" />
+        <span class="slider round"></span>
+    </label>
+    <!-- Selector de color para LED RGB 2 -->
+    <input type="color" id="rgb2-color-picker" class="form-control" value="#00ff00">
+    <p id="rgb2-status">Estado del LED RGB 2: Apagado</p>
+</div>
+        </div>
+    </section>
+        </div>
+    </div>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <script src="../static/js/app.min.js"></script>
+        <script src="../static/js/ControlCuartoPiso.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Maneja el selector de color para LED RGB 1
+            $('#rgb1-color-picker').on('input', function() {
+                var color = $(this).val();
+                console.log('Color del LED RGB 1:', color);
+            });
+
+            // Maneja el control de brillo para LED RGB 1
+            $('#rgb1-switch').change(function() {
+                var estado = $(this).is(':checked') ? 'Encendido' : 'Apagado';
+                $('#rgb1-status').text('Estado del LED RGB 1: ' + estado);
+            });
+
+            // Maneja el selector de color para LED RGB 2
+            $('#rgb2-color-picker').on('input', function() {
+                var color = $(this).val();
+                console.log('Color del LED RGB 2:', color);
+            });
+
+            // Maneja el control de brillo para LED RGB 2
+            $('#rgb2-switch').change(function() {
+                var estado = $(this).is(':checked') ? 'Encendido' : 'Apagado';
+                $('#rgb2-status').text('Estado del LED RGB 2: ' + estado);
+            });
+        });
+    </script>
+</body>
+</html>
