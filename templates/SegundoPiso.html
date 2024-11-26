@@ -243,51 +243,70 @@
                 </ol>
             </section>
 
-            <!-- Main content -->
+             <!-- Main content -->
             <section class="content">
+                <!-- Cuadro principal para controlar el LED y sensores -->
                 <div class="control-section">
-                    <!-- Nivel de Agua -->
+                <!-- Control del LED -->
                     <div class="control-box">
-                        <h4>Nivel de Agua</h4>
-                        <p><strong>Estado:</strong> <span id="nivel-agua-status">Cargando...</span></p>
+                        <h4>Control de LEDs</h4>
+                        <!-- LED 1 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led1-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 1</span>
+                            <p id="led1-status-text">Estado: Cargando...</p>
+                        </div>
+                        <!-- LED 2 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led2-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 2</span>
+                            <p id="led2-status-text">Estado: Cargando...</p>
+                        </div>
+                        <!-- LED 3 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led3-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 3</span>
+                            <p id="led3-status-text">Estado: Cargando...</p>
+                        </div>
+                        <!-- LED 4 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led4-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 4</span>
+                            <p id="led4-status-text">Estado: Cargando...</p>
+                        </div>
                     </div>
 
-                    <!-- Metal Detectado -->
+                    <!-- Estado del PIR -->
                     <div class="control-box">
-                        <h4>Metal Detectado</h4>
-                        <p><strong>Estado:</strong> <span id="metal-status">Cargando...</span></p>
+                        <h4>Sensor PIR</h4>
+                        <div id="pir-status">Cargando...</div>
                     </div>
 
-                    <!-- Temperatura -->
+                    <!-- Estado del LDR -->
                     <div class="control-box">
-                        <h4>Temperatura</h4>
-                        <p><strong>Estado:</strong> <span id="temperatura-status">Cargando...</span></p>
-                    </div>
-
-                    <!-- LED 1 -->
-                    <div class="control-box">
-                        <h4>Control de LED 1</h4>
-                        <label for="led1-switch">LED 1:</label>
-                        <label class="switch">
-                            <input type="checkbox" id="led1-switch" />
-                            <span class="slider round"></span>
-                        </label>
-                        <p id="led1-status">Estado del LED 1: Cargando...</p>
-                    </div>
-
-                    <!-- LED 2 -->
-                    <div class="control-box">
-                        <h4>Control de LED 2</h4>
-                        <label for="led2-switch">LED 2:</label>
-                        <label class="switch">
-                            <input type="checkbox" id="led2-switch" />
-                            <span class="slider round"></span>
-                        </label>
-                        <p id="led2-status">Estado del LED 2: Cargando...</p>
+                        <h4>Sensor LDR</h4>
+                        <div id="ldr-status">Cargando...</div>
                     </div>
                 </div>
             </section>
         </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Versión</b> 2.0
+            </div>
     </div>
 
     <!-- Scripts -->
@@ -295,6 +314,7 @@
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/app.min.js"></script>
     <script src="../static/js/ControlSegundoPiso.js"></script>
+
 </body>
 
 </html>
