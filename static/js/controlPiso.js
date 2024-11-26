@@ -15,47 +15,69 @@ function actualizarEstado() {
             const ldrStatus = data.ldr_status == 1 ? 'Luz detectada' : 'Oscuridad detectada';
             document.getElementById('ldr-status').innerText = ldrStatus;
             document.getElementById('ldr-status').style.backgroundColor = data.ldr_status == 1 ? 'yellow' : 'gray';
+           
+            // Actualizar estado del sensor de metal
+            const metalStatus = data.metal_detectado == 1 ? 'Metal detectado' : 'No se detecta metal';
+            document.getElementById('metal-status').innerText = metalStatus;
+            document.getElementById('metal-status').style.backgroundColor = data.metal_detectado == 1 ? 'orange' : 'gray';
+            
+            // Actualizar estado del sensor de nivel de agua
+            const nivelAguaStatus = data.nivel_agua == 1 ? 'Agua detectada' : 'El jardin necesita agua';
+            document.getElementById('water-status').innerText = nivelAguaStatus;
+            document.getElementById('water-status').style.backgroundColor = data.nivel_agua == 1 ? 'blue' : 'gray';        
         })
         .catch(error => {
             console.error("Error al obtener el estado del sensor:", error);
             document.getElementById('pir-status').innerText = 'Error al cargar';
             document.getElementById('ldr-status').innerText = 'Error al cargar';
+            document.getElementById('metal-status').innerText = 'Error al cargar';
+            document.getElementById('water-status').innerText = 'Error al cargar';
         });
 
     // Obtener el estado actual del LED desde la API
-    fetch('https://intento-final.azurewebsites.net/api/getledstatus?esp_id=ESP32_01')  // Incluye el esp_id en la URL
+       fetch('https://intento-final.azurewebsites.net/api/getledstatus?esp_id=ESP32_01') // Incluye el esp_id en la URL
         .then(response => response.json())
         .then(data => {
-            console.log("Estado del LED:", data); // Verificar estado del LED en la consola
-            document.getElementById('led-switch').checked = data.led_status == 1;
-            document.getElementById('led-status-text').innerText = data.led_status == 1 ? 'LED encendido' : 'LED apagado';
+            console.log("Estado de los LEDs:", data); // Verificar estado de los LEDs en la consola
+
+            // Actualizar cada LED individualmente
+            actualizarEstadoLED('led1', data.led1_status);
+            actualizarEstadoLED('led2', data.led2_status);
+            actualizarEstadoLED('led3', data.led3_status);
+            actualizarEstadoLED('led4', data.led4_status);
         })
         .catch(error => {
-            console.error("Error al obtener el estado del LED:", error);
-            document.getElementById('led-status-text').innerText = 'Error al cargar';
+            console.error("Error al obtener el estado de los LEDs:", error);
+
+            // Mostrar mensaje de error para cada LED
+            ['led1', 'led2', 'led3', 'led4'].forEach(ledId => {
+                document.getElementById(`${ledId}-status-text`).innerText = 'Error al cargar';
+            });
         });
 }
 
 // Función para cambiar el estado del LED cuando se activa el interruptor
-function toggleLED() {
-    const ledState = document.getElementById('led-switch').checked ? 1 : 0;
+function toggleLED(ledId) {
+    const ledSwitch = document.getElementById(`${ledId}-switch`);
+    const estado = ledSwitch.checked ? 1 : 0;
+
     fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `esp_id=ESP32_01&led_status=${ledState}`  // Asegúrate de incluir el esp_id en el body
+        body: `esp_id=ESP32_01&${ledId}_status=${estado}` // Asegúrate de incluir el esp_id y el LED correspondiente
     })
     .then(response => {
         if (response.ok) {
-            console.log("Estado del LED actualizado");
-            document.getElementById('led-status-text').innerText = ledState == 1 ? 'LED encendido' : 'LED apagado';
+            console.log(`Estado de ${ledId} actualizado`);
+            document.getElementById(`${ledId}-status-text`).innerText = estado == 1 ? 'Encendido' : 'Apagado';
         } else {
-            console.error("Error al actualizar el estado del LED");
+            console.error(`Error al actualizar el estado de ${ledId}`);
         }
     })
     .catch(error => {
-        console.error("Error al cambiar el estado del LED:", error);
-        document.getElementById('led-status-text').innerText = 'Error al actualizar';
-    }); 
+        console.error(`Error al cambiar el estado de ${ledId}:`, error);
+        document.getElementById(`${ledId}-status-text`).innerText = 'Error al actualizar';
+    });
 }
 
 // Llamar a la función para actualizar el estado al cargar la página
@@ -65,6 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Establecer intervalo para actualizar el estado cada 5 segundos
     setInterval(actualizarEstado, 5000);
 
-    // Escuchar el evento de cambio en el switch del LED
-    document.getElementById('led-switch').addEventListener('change', toggleLED);
+    // Escuchar eventos de cambio en los switches de LEDs
+    ['led1', 'led2', 'led3', 'led4'].forEach(ledId => {
+        document.getElementById(`${ledId}-switch`).addEventListener('change', function () {
+            toggleLED(ledId);
+        });
+    });
 });
