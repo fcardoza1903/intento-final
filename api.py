@@ -72,6 +72,7 @@ def insert_data():
         esp_id = data.get('esp_id')
         pir_status = data.get('pir_status')
         ldr_status = data.get('ldr_status')
+        ldr1_status = data.get('ldr1_status')
         nivel_agua = data.get('nivel_agua')
         metal_detectado = data.get('metal_detectado')
         temperatura = data.get('temperatura')
@@ -87,17 +88,17 @@ def insert_data():
         if result:
             query_update = """
             UPDATE sensor_data 
-            SET pir_status = ?, ldr_status = ?, nivel_agua = ?, metal_detectado = ?, temperatura = ?
+            SET pir_status = ?, ldr_status = ?, ldr1_status = ?, nivel_agua = ?, metal_detectado = ?, temperatura = ?
             WHERE esp_id = ?
             """
-            cursor.execute(query_update, (pir_status, ldr_status, nivel_agua, metal_detectado, temperatura, esp_id))
+            cursor.execute(query_update, (pir_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura, esp_id))
         else:
             # Si no existe, insertamos un nuevo registro
             query_insert = """
-            INSERT INTO sensor_data (esp_id, pir_status, ldr_status, nivel_agua, metal_detectado, temperatura)
+            INSERT INTO sensor_data (esp_id, pir_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura)
             VALUES (?, ?, ?, ?, ?, ?)
             """
-            cursor.execute(query_insert, (esp_id, pir_status, ldr_status, nivel_agua, metal_detectado, temperatura))
+            cursor.execute(query_insert, (esp_id, pir_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura))
 
         mydb.commit()
         cursor.close()
@@ -117,7 +118,7 @@ def get_latest_status():
 
         cursor = mydb.cursor()
         cursor.execute("""
-        SELECT pir_status, ldr_status, nivel_agua, metal_detectado, temperatura 
+        SELECT pir_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura 
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
