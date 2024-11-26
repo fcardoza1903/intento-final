@@ -1,7 +1,7 @@
 // Función para actualizar el estado de los sensores (PIR y LDR) y el LED
 function actualizarEstado() {
     // Obtener el estado del PIR y LDR desde la API
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/getlateststatus?esp_id=ESP32_01')  // Incluye el esp_id en la URL
+    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_01')  // Incluye el esp_id en la URL
         .then(response => response.json())
         .then(data => {
             console.log("Datos obtenidos:", data); // Verificar datos en la consola
@@ -23,7 +23,7 @@ function actualizarEstado() {
         });
 
     // Obtener el estado actual del LED desde la API
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/getledstatus?esp_id=ESP32_01')  // Incluye el esp_id en la URL
+    fetch('https://intento-final.azurewebsites.net/api/getledstatus?esp_id=ESP32_01')  // Incluye el esp_id en la URL
         .then(response => response.json())
         .then(data => {
             console.log("Estado del LED:", data); // Verificar estado del LED en la consola
@@ -39,7 +39,7 @@ function actualizarEstado() {
 // Función para cambiar el estado del LED cuando se activa el interruptor
 function toggleLED() {
     const ledState = document.getElementById('led-switch').checked ? 1 : 0;
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/updateled', {
+    fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `esp_id=ESP32_01&led_status=${ledState}`  // Asegúrate de incluir el esp_id en el body
