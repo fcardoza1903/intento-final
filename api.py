@@ -151,6 +151,9 @@ def update_led():
 
         led1_status = data.get('led1_status')
         led2_status = data.get('led2_status')
+        led3_status = data.get('led3_status')
+        led4_status = data.get('led4_status')
+        led5_status = data.get('led5_status')
         esp_id = data.get('esp_id')
 
         cursor = mydb.cursor()
@@ -163,6 +166,19 @@ def update_led():
             query_update_led2 = "UPDATE sensor_data SET led2_status = ? WHERE esp_id = ?"
             cursor.execute(query_update_led2, (led2_status, esp_id))
 
+        if led3_status is not None:
+            query_update_led3 = "UPDATE sensor_data SET led3_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led3, (led3_status, esp_id))
+
+        if led4_status is not None:
+            query_update_led4 = "UPDATE sensor_data SET led4_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led4, (led4_status, esp_id))
+
+        if led5_status is not None:
+            query_update_led5 = "UPDATE sensor_data SET led5_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led5, (led5_status, esp_id))  
+
+        
         mydb.commit()
         cursor.close()
         mydb.close()
@@ -181,7 +197,7 @@ def get_led_status():
         
         cursor = mydb.cursor()
         cursor.execute("""
-        SELECT led1_status, led2_status 
+        SELECT led1_status, led2_status, led3_status, led4_status, led5_status 
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
