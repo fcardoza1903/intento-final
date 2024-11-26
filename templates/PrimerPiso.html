@@ -243,14 +243,45 @@
             <section class="content">
                 <!-- Cuadro principal para controlar el LED y sensores -->
                 <div class="control-section">
-                    <!-- Control del LED -->
+                <!-- Control del LED -->
                     <div class="control-box">
-                        <h4>Control del LED</h4>
-                        <label class="switch">
-                            <input type="checkbox" id="led-switch">
-                            <span class="slider round"></span>
-                        </label>
-                        <p id="led-status-text">Estado del LED: Cargando...</p>
+                        <h4>Control de LEDs</h4>
+                        <!-- LED 1 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led1-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 1</span>
+                            <p id="led1-status-text">Estado: Cargando...</p>
+                        </div>
+                        <!-- LED 2 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led2-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 2</span>
+                            <p id="led2-status-text">Estado: Cargando...</p>
+                        </div>
+                        <!-- LED 3 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led3-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 3</span>
+                            <p id="led3-status-text">Estado: Cargando...</p>
+                        </div>
+                        <!-- LED 4 -->
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" id="led4-switch">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>LED 4</span>
+                            <p id="led4-status-text">Estado: Cargando...</p>
+                        </div>
                     </div>
 
                     <!-- Estado del PIR -->
@@ -264,6 +295,18 @@
                         <h4>Sensor LDR</h4>
                         <div id="ldr-status">Cargando...</div>
                     </div>
+
+                    <!-- Estado del sensor de metal -->
+                    <div class="control-box">
+                      <h4>Sensor de Metal</h4>
+                      <div id="metal-status">Cargando...</div>
+                     </div>
+
+                     <!-- Estado del sensor de humedad del piso -->
+                     <div class="control-box">
+                        <h4>Sensor de Humedad de Suelo</h4>
+                        <div id="humidity-status">Cargando...</div>
+                     </div>
                 </div>
             </section>
         </div>
@@ -272,8 +315,6 @@
             <div class="pull-right hidden-xs">
                 <b>Versión</b> 2.0
             </div>
-            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> Todos los derechos reservados.
-        </footer>
     </div>
 
 <!-- Scripts -->
