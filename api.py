@@ -72,8 +72,10 @@ def insert_data():
         esp_id = data.get('esp_id')
         pir_status = data.get('pir_status')
         pir1_status = data.get('pir1_status')
+        pir2_status = data.get('pir2_status')
         ldr_status = data.get('ldr_status')
         ldr1_status = data.get('ldr1_status')
+        ldr2_status = data.get('ldr2_status')
         nivel_agua = data.get('nivel_agua')
         metal_detectado = data.get('metal_detectado')
         temperatura = data.get('temperatura')
@@ -89,17 +91,17 @@ def insert_data():
         if result:
             query_update = """
             UPDATE sensor_data 
-            SET pir_status = ?, pir1_status = ?, ldr_status = ?, ldr1_status = ?, nivel_agua = ?, metal_detectado = ?, temperatura = ?
+            SET pir_status = ?, pir1_status = ?, pir2_status = ?, ldr_status = ?, ldr1_status = ?, ldr2_status = ?, nivel_agua = ?, metal_detectado = ?, temperatura = ?
             WHERE esp_id = ?
             """
-            cursor.execute(query_update, (pir_status, pir1_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura, esp_id))
+            cursor.execute(query_update, (pir_status, pir1_status, pir2_status, ldr_status, ldr1_status, ldr2_status, nivel_agua, metal_detectado, temperatura, esp_id))
         else:
             # Si no existe, insertamos un nuevo registro
             query_insert = """
-            INSERT INTO sensor_data (esp_id, pir_status, pir1_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO sensor_data (esp_id, pir_status, pir1_status, pir2_status, ldr_status, ldr1_status, ldr2_status, nivel_agua, metal_detectado, temperatura)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """
-            cursor.execute(query_insert, (esp_id, pir_status, pir1_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura))
+            cursor.execute(query_insert, (esp_id, pir_status, pir1_status, pir2_status, ldr_status, ldr1_status, ldr2_status, nivel_agua, metal_detectado, temperatura))
 
         mydb.commit()
         cursor.close()
@@ -119,7 +121,7 @@ def get_latest_status():
 
         cursor = mydb.cursor()
         cursor.execute("""
-        SELECT pir_status, pir1_status, ldr_status, ldr1_status, nivel_agua, metal_detectado, temperatura 
+        SELECT pir_status, pir1_status, pir2_status, ldr_status, ldr1_status, ldr2_status, nivel_agua, metal_detectado, temperatura 
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
@@ -154,6 +156,15 @@ def update_led():
         led3_status = data.get('led3_status')
         led4_status = data.get('led4_status')
         led5_status = data.get('led5_status')
+        led6_status = data.get('led6_status')
+        led7_status = data.get('led7_status')
+        led8_status = data.get('led8_status')
+        led9_status = data.get('led9_status')
+        led10_status = data.get('led10_status')
+        led11_status = data.get('led11_status')
+        led12_status = data.get('led12_status')
+        led13_status = data.get('led13_status')
+        led14_status = data.get('led14_status')
         esp_id = data.get('esp_id')
 
         cursor = mydb.cursor()
@@ -162,6 +173,7 @@ def update_led():
         if led1_status is not None:
             query_update_led1 = "UPDATE sensor_data SET led1_status = ? WHERE esp_id = ?"
             cursor.execute(query_update_led1, (led1_status, esp_id))
+            
         if led2_status is not None:
             query_update_led2 = "UPDATE sensor_data SET led2_status = ? WHERE esp_id = ?"
             cursor.execute(query_update_led2, (led2_status, esp_id))
@@ -177,8 +189,43 @@ def update_led():
         if led5_status is not None:
             query_update_led5 = "UPDATE sensor_data SET led5_status = ? WHERE esp_id = ?"
             cursor.execute(query_update_led5, (led5_status, esp_id))  
+       
+        if led6_status is not None:
+            query_update_led6 = "UPDATE sensor_data SET led6_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led6, (led6_status, esp_id))  
 
-        
+        if led7_status is not None:
+            query_update_led7 = "UPDATE sensor_data SET led7_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led7, (led7_status, esp_id))
+
+        if led8_status is not None:
+            query_update_led8 = "UPDATE sensor_data SET led8_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led8, (led8_status, esp_id))
+
+        if led9_status is not None:
+            query_update_led9 = "UPDATE sensor_data SET led9_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led9, (led9_status, esp_id))
+
+        if led10_status is not None:
+            query_update_led10 = "UPDATE sensor_data SET led10_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led10, (led10_status, esp_id))
+
+        if led11_status is not None:
+            query_update_led11 = "UPDATE sensor_data SET led11_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led11, (led11_status, esp_id))
+
+        if led12_status is not None:
+            query_update_led12 = "UPDATE sensor_data SET led12_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led12, (led12_status, esp_id))
+
+        if led13_status is not None:
+            query_update_led13 = "UPDATE sensor_data SET led13_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led13, (led13_status, esp_id))
+
+        if led14_status is not None:
+            query_update_led14 = "UPDATE sensor_data SET led14_status = ? WHERE esp_id = ?"
+            cursor.execute(query_update_led14, (led14_status, esp_id))
+            
         mydb.commit()
         cursor.close()
         mydb.close()
@@ -197,7 +244,7 @@ def get_led_status():
         
         cursor = mydb.cursor()
         cursor.execute("""
-        SELECT led1_status, led2_status, led3_status, led4_status, led5_status 
+        SELECT led1_status, led2_status, led3_status, led4_status, led5_status, led6_status, led7_status,, led8_status, led9_status, led10_status, led11_status, , led12_status, led13_status, led14_status 
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
