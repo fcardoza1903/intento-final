@@ -151,24 +151,20 @@ def update_led():
         if not data:
             return jsonify({"error": "Faltan datos o formato JSON incorrecto"}), 400
 
-        # Convertir true/false a 1/0 para asegurar la consistencia de los datos
-        led1_status = 1 if data.get('led1_status') == True else 0 if data.get('led1_status') == False else None
-        led2_status = 1 if data.get('led2_status') == True else 0 if data.get('led2_status') == False else None
-        led3_status = 1 if data.get('led3_status') == True else 0 if data.get('led3_status') == False else None
-        led4_status = 1 if data.get('led4_status') == True else 0 if data.get('led4_status') == False else None
-        led5_status = 1 if data.get('led5_status') == True else 0 if data.get('led5_status') == False else None
-        led6_status = 1 if data.get('led6_status') == True else 0 if data.get('led6_status') == False else None
-        led7_status = 1 if data.get('led7_status') == True else 0 if data.get('led7_status') == False else None
-        led8_status = 1 if data.get('led8_status') == True else 0 if data.get('led8_status') == False else None
-        led9_status = 1 if data.get('led9_status') == True else 0 if data.get('led9_status') == False else None
-        led10_status = 1 if data.get('led10_status') == True else 0 if data.get('led10_status') == False else None
-        led11_status = 1 if data.get('led11_status') == True else 0 if data.get('led11_status') == False else None
-        led12_status = 1 if data.get('led12_status') == True else 0 if data.get('led12_status') == False else None
-        led13_status = 1 if data.get('led13_status') == True else 0 if data.get('led13_status') == False else None
-        led14_status = 1 if data.get('led14_status') == True else 0 if data.get('led14_status') == False else None
+        led1_status = data.get('led1_status')
+        led2_status = data.get('led2_status')
+        led3_status = data.get('led2_status')
+        led4_status = data.get('led2_status')
+        led5_status = data.get('led2_status')
+        led6_status = data.get('led2_status')
+        led7_status = data.get('led2_status')
+        led8_status = data.get('led2_status')
+        led9_status = data.get('led2_status')
+        led10_status = data.get('led2_status')
         esp_id = data.get('esp_id')
 
         cursor = mydb.cursor()
+        
 
         # Actualizamos los estados de los LEDs clásicos
         if led1_status is not None:
@@ -210,22 +206,6 @@ def update_led():
         if led10_status is not None:
             query_update_led10 = "UPDATE sensor_data SET led10_status = ? WHERE esp_id = ?"
             cursor.execute(query_update_led10, (led10_status, esp_id))
-
-        if led11_status is not None:
-            query_update_led11 = "UPDATE sensor_data SET led11_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led11, (led11_status, esp_id))
-
-        if led12_status is not None:
-            query_update_led12 = "UPDATE sensor_data SET led12_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led12, (led12_status, esp_id))
-
-        if led13_status is not None:
-            query_update_led13 = "UPDATE sensor_data SET led13_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led13, (led13_status, esp_id))
-
-        if led14_status is not None:
-            query_update_led14 = "UPDATE sensor_data SET led14_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led14, (led14_status, esp_id))
             
         mydb.commit()
         cursor.close()
@@ -246,7 +226,7 @@ def get_led_status():
         cursor = mydb.cursor()
         cursor.execute("""
         SELECT led1_status, led2_status, led3_status, led4_status, led5_status, led6_status, led7_status, led8_status, 
-               led9_status, led10_status, led11_status, led12_status, led13_status, led14_status 
+               led9_status, led10_status
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
@@ -256,83 +236,7 @@ def get_led_status():
         cursor.close()
         mydb.close()
 
-        if result:
-            # Convertir los valores True/False a 1/0 y manejar None
-            result_dict = dict(zip(columns, result))
-            for key in result_dict:
-                if result_dict[key] is True:
-                    result_dict[key] = 1
-                elif result_dict[key] is False:
-                    result_dict[key] = 0
-                elif result_dict[key] is None:
-                    result_dict[key] = 0  # Si el valor es None, lo convertimos a 0
-
-            print(f"Datos devueltos para {esp_id}: {result_dict}")  # Depuración para ver los datos devueltos
-            return jsonify(result_dict)
-        else:
-            # Si no hay resultados, respondemos con un mensaje adecuado
-            print(f"No hay datos para el esp_id: {esp_id}")  # Depuración
-            return jsonify({"error": "No hay datos para el esp_id proporcionado"}), 200
-
-    except Exception as e:
-        # Si ocurre un error, devolver el mensaje del error
-        print(f"Error al obtener el estado de los LEDs: {e}")  # Depuración
-        return jsonify({"error": str(e)}), 500
-
-
-
-# Ruta para actualizar el estado de los LEDs RGB
-@app.route('/api/updatergb', methods=['POST'])
-def update_rgb_led():
-    try:
-        mydb = create_connection()
-        if mydb is None:
-            return jsonify({"error": "Conexión a la base de datos no disponible"}), 500
-
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "Faltan datos o formato JSON incorrecto"}), 400
-
-        led_rgb1_status = data.get('led_rgb1_status')
-        led_rgb1_color = data.get('led_rgb1_color')
-        led_rgb2_status = data.get('led_rgb2_status')
-        led_rgb2_color = data.get('led_rgb2_color')
-        esp_id = data.get('esp_id')
-
-        cursor = mydb.cursor()
-
-        # Actualizamos los estados de los LEDs RGB
-        if led_rgb1_status is not None:
-            query_update_led_rgb1 = "UPDATE sensor_data SET led_rgb1_status = ?, led_rgb1_color = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led_rgb1, (led_rgb1_status, led_rgb1_color, esp_id))
-        if led_rgb2_status is not None:
-            query_update_led_rgb2 = "UPDATE sensor_data SET led_rgb2_status = ?, led_rgb2_color = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led_rgb2, (led_rgb2_status, led_rgb2_color, esp_id))
-
-        mydb.commit()
-        cursor.close()
-        mydb.close()
-        return jsonify({"message": "LED RGB actualizado"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-# Ruta para obtener el estado actual de los LEDs RGB
-@app.route('/api/getrgbstatus', methods=['GET'])
-def get_rgb_status():
-    try:
-        esp_id = request.args.get('esp_id')
-        mydb = create_connection()
-        if mydb is None:
-            return jsonify({"error": "Conexión a la base de datos no disponible"}), 500
-        
-        cursor = mydb.cursor()
-        cursor.execute("""
-        SELECT led_rgb1_status, led_rgb1_color, led_rgb2_status, led_rgb2_color 
-        FROM sensor_data 
-        WHERE esp_id = ? ORDER BY id DESC
-        """, (esp_id,))
-        
-        columns = [column[0] for column in cursor.description]
+columns = [column[0] for column in cursor.description]
         result = cursor.fetchone()
         cursor.close()
         mydb.close()
@@ -344,6 +248,7 @@ def get_rgb_status():
             return jsonify({"error": "No hay datos para el esp_id proporcionado"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     import os
