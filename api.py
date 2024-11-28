@@ -244,7 +244,7 @@ def get_led_status():
         
         cursor = mydb.cursor()
         cursor.execute("""
-        SELECT led1_status, led2_status, led3_status, led4_status, led5_status, led6_status, led7_status, led8_status, led9_status, led10_status, led11_status, , led12_status, led13_status, led14_status 
+        SELECT led1_status, led2_status, led3_status, led4_status, led5_status, led6_status, led7_status, led8_status, led9_status, led10_status, led11_status, led12_status, led13_status, led14_status 
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
