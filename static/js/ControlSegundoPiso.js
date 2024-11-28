@@ -27,18 +27,24 @@ function toggleLED(ledId) {
     const ledSwitch = document.getElementById(`${ledId}-switch`);
     const estado = ledSwitch.checked ? 1 : 0;
 
-    // Realizar solicitud al servidor solo al interactuar
+    // Crear objeto de datos en formato JSON
+    const datos = {
+        esp_id: "ESP32_02",
+        [`${ledId}_status`]: estado
+    };
+
+    // Enviar datos al servidor en formato JSON
     fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `esp_id=ESP32_02&${ledId}_status=${estado}` // Asegúrate de incluir el esp_id y el LED correspondiente
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos) // Convertir objeto a JSON
     })
     .then(response => {
         if (response.ok) {
             console.log(`Estado de ${ledId} actualizado`);
             document.getElementById(`${ledId}-status-text`).innerText = estado == 1 ? 'Encendido' : 'Apagado';
         } else {
-            console.error(`Error al actualizar el estado de ${ledId}`);
+            console.error(`Error al actualizar el estado de ${ledId}:`, response.statusText);
         }
     })
     .catch(error => {
