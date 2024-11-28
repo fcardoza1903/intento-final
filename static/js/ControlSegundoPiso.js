@@ -7,12 +7,12 @@ function actualizarEstado() {
             console.log("Datos obtenidos:", data); // Verificar datos en la consola
 
             // Actualizar estado del PIR
-            const pirStatus = data.pir_status == 1 ? 'Movimiento detectado' : 'No se detecta movimiento';
+            const pir1Status = data.pir1_status == 1 ? 'Movimiento detectado' : 'No se detecta movimiento';
             document.getElementById('pir1-status').innerText = pir1Status;
             document.getElementById('pir1-status').style.backgroundColor = data.pir1_status == 1 ? 'green' : 'gray';
 
             // Actualizar estado del LDR
-            const ldrStatus = data.ldr_status == 1 ? 'Luz detectada' : 'Oscuridad detectada';
+            const ldr1Status = data.ldr1_status == 1 ? 'Luz detectada' : 'Oscuridad detectada';
             document.getElementById('ldr1-status').innerText = ldr1Status;
             document.getElementById('ldr1-status').style.backgroundColor = data.ldr1_status == 1 ? 'yellow' : 'gray';
         
