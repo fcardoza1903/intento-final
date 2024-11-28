@@ -41,10 +41,10 @@ function actualizarEstado() {
             console.log("Estado de los LEDs:", data); // Verificar estado de los LEDs en la consola
 
             // Actualizar cada LED individualmente
-            actualizarEstadoLED('led1', data.led1_status);
-            actualizarEstadoLED('led2', data.led2_status);
-            actualizarEstadoLED('led3', data.led3_status);
-            actualizarEstadoLED('led4', data.led4_status);
+            actualizarEstado('led1', data.led1_status);
+            actualizarEstado('led2', data.led2_status);
+            actualizarEstado('led3', data.led3_status);
+            actualizarEstado('led4', data.led4_status);
         })
         .catch(error => {
             console.error("Error al obtener el estado de los LEDs:", error);
