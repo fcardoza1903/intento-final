@@ -1,7 +1,7 @@
 // Función para actualizar el estado de los sensores (PIR1 y LDR1) y los LEDs
 function actualizarEstado() {
     // Obtener el estado de los sensores PIR1 y LDR1 desde la API para ESP32_02
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')
+    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener el estado del sensor: ' + response.status);
