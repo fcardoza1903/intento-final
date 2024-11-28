@@ -239,12 +239,14 @@ def get_led_status():
     try:
         esp_id = request.args.get('esp_id')
         mydb = create_connection()
+        
         if mydb is None:
             return jsonify({"error": "Conexión a la base de datos no disponible"}), 500
         
         cursor = mydb.cursor()
         cursor.execute("""
-        SELECT led1_status, led2_status, led3_status, led4_status, led5_status, led6_status, led7_status, led8_status, led9_status, led10_status, led11_status, led12_status, led13_status, led14_status 
+        SELECT led1_status, led2_status, led3_status, led4_status, led5_status, led6_status, led7_status, led8_status, 
+               led9_status, led10_status, led11_status, led12_status, led13_status, led14_status 
         FROM sensor_data 
         WHERE esp_id = ? ORDER BY id DESC
         """, (esp_id,))
@@ -255,7 +257,7 @@ def get_led_status():
         mydb.close()
 
         if result:
-            # Convertir los valores True/False a 1/0
+            # Convertir los valores True/False a 1/0 y manejar None
             result_dict = dict(zip(columns, result))
             for key in result_dict:
                 if result_dict[key] is True:
@@ -265,11 +267,18 @@ def get_led_status():
                 elif result_dict[key] is None:
                     result_dict[key] = 0  # Si el valor es None, lo convertimos a 0
 
+            print(f"Datos devueltos para {esp_id}: {result_dict}")  # Depuración para ver los datos devueltos
             return jsonify(result_dict)
         else:
+            # Si no hay resultados, respondemos con un mensaje adecuado
+            print(f"No hay datos para el esp_id: {esp_id}")  # Depuración
             return jsonify({"error": "No hay datos para el esp_id proporcionado"}), 200
+
     except Exception as e:
+        # Si ocurre un error, devolver el mensaje del error
+        print(f"Error al obtener el estado de los LEDs: {e}")  # Depuración
         return jsonify({"error": str(e)}), 500
+
 
 
 # Ruta para actualizar el estado de los LEDs RGB
