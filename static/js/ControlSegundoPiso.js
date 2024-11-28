@@ -30,7 +30,7 @@ function actualizarEstado() {
         });
 
     // Obtener el estado actual de los LEDs 5, 6, 7, 8, 9 y 10 desde la API
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/getledstatus?esp_id=ESP32_02')
+    fetch('https://intento-final.azurewebsites.net/api/getledstatus?esp_id=ESP32_02')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener el estado de los LEDs: ' + response.status);
@@ -59,7 +59,7 @@ function actualizarEstado() {
 // Función para cambiar el estado de los LEDs cuando se activa el interruptor
 function toggleLED(ledNumber) {
     const ledState = document.getElementById(`led${ledNumber}-switch`).checked ? 1 : 0;
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/updateled', {
+    fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -82,7 +82,7 @@ function toggleLED(ledNumber) {
 
 // Función para manejar el encendido de los LEDs cuando se activa PIR1 y LDR1
 function verificarSensoresYEncenderLEDs() {
-    fetch('https://proyecto-iot-fiee.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')
+    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener el estado de los sensores PIR1 y LDR1: ' + response.status);
