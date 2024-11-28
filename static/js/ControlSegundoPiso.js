@@ -24,26 +24,26 @@ function actualizarSensores() {
 
 // Función para cambiar el estado del LED cuando se activa el interruptor
 function toggleLED(ledId) {
-    const ledSwitch = document.getElementById(${ledId}-switch);
+    const ledSwitch = document.getElementById(`${ledId}-switch`);
     const estado = ledSwitch.checked ? 1 : 0;
 
     // Realizar solicitud al servidor solo al interactuar
     fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: esp_id=ESP32_02&${ledId}_status=${estado} // Asegúrate de incluir el esp_id y el LED correspondiente
+        body: `esp_id=ESP32_02&${ledId}_status=${estado}` // Asegúrate de incluir el esp_id y el LED correspondiente
     })
     .then(response => {
         if (response.ok) {
-            console.log(Estado de ${ledId} actualizado);
-            document.getElementById(${ledId}-status-text).innerText = estado == 1 ? 'Encendido' : 'Apagado';
+            console.log(`Estado de ${ledId} actualizado`);
+            document.getElementById(`${ledId}-status-text`).innerText = estado == 1 ? 'Encendido' : 'Apagado';
         } else {
-            console.error(Error al actualizar el estado de ${ledId});
+            console.error(`Error al actualizar el estado de ${ledId}`);
         }
     })
     .catch(error => {
-        console.error(Error al cambiar el estado de ${ledId}:, error);
-        document.getElementById(${ledId}-status-text).innerText = 'Error al actualizar';
+        console.error(`Error al cambiar el estado de ${ledId}:`, error);
+        document.getElementById(`${ledId}-status-text`).innerText = 'Error al actualizar';
     });
 }
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Escuchar el evento de cambio en los switches de los LEDs
     ['led5', 'led6', 'led7', 'led8', 'led9', 'led10'].forEach(ledId => {
-        document.getElementById(${ledId}-switch).addEventListener('change', function () {
+        document.getElementById(`${ledId}-switch`).addEventListener('change', function () {
             toggleLED(ledId); // Cambia el estado del LED correspondiente
         });
     });
