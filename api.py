@@ -3,7 +3,7 @@ import pyodbc
 from flask_cors import CORS
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-
+ 
 # Habilitar CORS para toda la aplicación
 CORS(app)
 
