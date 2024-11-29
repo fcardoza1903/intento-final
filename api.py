@@ -235,11 +235,6 @@ def get_led_status():
         cursor.close()
         mydb.close()
 
-columns = [column[0] for column in cursor.description]
-        result = cursor.fetchone()
-        cursor.close()
-        mydb.close()
-
         if result:
             result_dict = dict(zip(columns, result))
             return jsonify(result_dict)
