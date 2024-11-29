@@ -138,7 +138,6 @@ def get_latest_status():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Ruta para actualizar el estado de los LEDs clásicos
 @app.route('/api/updateled', methods=['POST'])
 def update_led():
     try:
@@ -150,66 +149,51 @@ def update_led():
         if not data:
             return jsonify({"error": "Faltan datos o formato JSON incorrecto"}), 400
 
-        led1_status = data.get('led1_status')
-        led2_status = data.get('led2_status')
-        led3_status = data.get('led3_status')
-        led4_status = data.get('led4_status')
-        led5_status = data.get('led5_status')
-        led6_status = data.get('led6_status')
-        led7_status = data.get('led7_status')
-        led8_status = data.get('led8_status')
-        led9_status = data.get('led9_status')
-        led10_status = data.get('led10_status')
+        # Obtener estados de los LEDs
         esp_id = data.get('esp_id')
+        led_status = {
+            'led1_status': data.get('led1_status'),
+            'led2_status': data.get('led2_status'),
+            'led3_status': data.get('led3_status'),
+            'led4_status': data.get('led4_status'),
+            'led5_status': data.get('led5_status'),
+            'led6_status': data.get('led6_status'),
+            'led7_status': data.get('led7_status'),
+            'led8_status': data.get('led8_status'),
+            'led9_status': data.get('led9_status'),
+            'led10_status': data.get('led10_status'),
+        }
+
+        # Filtrar los LEDs que tienen valores
+        updated_leds = {key: value for key, value in led_status.items() if value is not None}
+
+        if not updated_leds:
+            return jsonify({"error": "No se proporcionaron estados de LEDs para actualizar"}), 400
 
         cursor = mydb.cursor()
-        
 
-        # Actualizamos los estados de los LEDs clásicos
-        if led1_status is not None:
-            query_update_led1 = "UPDATE sensor_data SET led1_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led1, (led1_status, esp_id))
-            
-        if led2_status is not None:
-            query_update_led2 = "UPDATE sensor_data SET led2_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led2, (led2_status, esp_id))
+        # Construir la consulta SQL dinámica
+        set_clause = ", ".join([f"{key} = ?" for key in updated_leds.keys()])
+        values = list(updated_leds.values())
+        values.append(esp_id)  # Agregar esp_id al final para WHERE
 
-        if led3_status is not None:
-            query_update_led3 = "UPDATE sensor_data SET led3_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led3, (led3_status, esp_id))
+        query_update = f"UPDATE sensor_data SET {set_clause} WHERE esp_id = ?"
+        cursor.execute(query_update, tuple(values))
 
-        if led4_status is not None:
-            query_update_led4 = "UPDATE sensor_data SET led4_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led4, (led4_status, esp_id))
-
-        if led5_status is not None:
-            query_update_led5 = "UPDATE sensor_data SET led5_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led5, (led5_status, esp_id))  
-       
-        if led6_status is not None:
-            query_update_led6 = "UPDATE sensor_data SET led6_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led6, (led6_status, esp_id))  
-
-        if led7_status is not None:
-            query_update_led7 = "UPDATE sensor_data SET led7_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led7, (led7_status, esp_id))
-
-        if led8_status is not None:
-            query_update_led8 = "UPDATE sensor_data SET led8_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led8, (led8_status, esp_id))
-
-        if led9_status is not None:
-            query_update_led9 = "UPDATE sensor_data SET led9_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led9, (led9_status, esp_id))
-
-        if led10_status is not None:
-            query_update_led10 = "UPDATE sensor_data SET led10_status = ? WHERE esp_id = ?"
-            cursor.execute(query_update_led10, (led10_status, esp_id))
-            
+        # Commit de la transacción
         mydb.commit()
+
+        # Verificar si se actualizó algo
+        if cursor.rowcount > 0:
+            message = "LEDs actualizados correctamente"
+        else:
+            message = "No se encontró el dispositivo con ese esp_id o no hubo cambios"
+
         cursor.close()
         mydb.close()
-        return jsonify({"message": "LED actualizado"}), 200
+
+        return jsonify({"message": message}), 200
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
