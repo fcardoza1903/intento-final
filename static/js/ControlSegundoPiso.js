@@ -48,7 +48,7 @@ async function actualizarEstado() {
 async function toggleLED(ledNumber) {
     const ledState = document.getElementById(`led${ledNumber}-switch`).checked ? 1 : 0;
     try {
-        const response = await fetch('https://proyecto-iot-fiee.azurewebsites.net/api/updateled', {
+        const response = await fetch('https://intento-final.azurewebsites.net/api/updateled', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
