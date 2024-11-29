@@ -17,7 +17,7 @@ def create_connection():
             'UID=admin_iot;'
             'PWD=Focm24681012'
         )
-        print("Conexión exitosa")
+        print("Conexión exitosa") 
         return connection
     except Exception as e:
         print(f"Error al conectar a la base de datos: {e}")
