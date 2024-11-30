@@ -43,10 +43,14 @@ async function actualizarEstado() {
         }
     }
 }
-
 // Función para cambiar el estado de un LED
 async function toggleLED(ledNumber) {
-    const ledState = document.getElementById(`led${ledNumber}-switch`).checked ? 1 : 0;
+    const ledSwitch = document.getElementById(`led${ledNumber}-switch`);
+    const ledState = ledSwitch.checked ? 1 : 0;
+
+    // Bloquea el switch mientras se actualiza
+    ledSwitch.disabled = true;
+
     try {
         const response = await fetch('https://intento-final.azurewebsites.net/api/updateled', {
             method: 'POST',
@@ -61,11 +65,19 @@ async function toggleLED(ledNumber) {
 
         console.log(`Estado del LED ${ledNumber} actualizado`);
         document.getElementById(`led${ledNumber}-status-text`).innerText = ledState ? `LED ${ledNumber} encendido` : `LED ${ledNumber} apagado`;
+
+        // Rehabilitar el switch y mantener el estado actualizado
+        ledSwitch.disabled = false;
     } catch (error) {
         console.error(`Error al cambiar el estado del LED ${ledNumber}:`, error);
         document.getElementById(`led${ledNumber}-status-text`).innerText = `Error al actualizar el LED ${ledNumber}`;
+
+        // Revertir el cambio en el switch si falla
+        ledSwitch.checked = !ledState;
+        ledSwitch.disabled = false;
     }
 }
+
 
 // Configuración de eventos y actualización inicial al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
