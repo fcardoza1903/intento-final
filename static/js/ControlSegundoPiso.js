@@ -1,7 +1,7 @@
 // Función para actualizar el estado de los sensores (nivel de agua, metal detectado, temperatura) y los LEDs
 function actualizarEstado() {
     // Obtener el estado de los sensores desde la API para ESP32_02
-    fetch('http://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')  // Incluye el esp_id en la URL
+    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')  // Incluye el esp_id en la URL
         .then(response => response.json())
         .then(data => {
             console.log("Datos obtenidos:", data); // Verificar datos en la consola
@@ -21,7 +21,7 @@ function actualizarEstado() {
         });
 
     // Obtener el estado actual de los LEDs desde la API
-    fetch('http://intento-final.azurewebsites.net/api/getledstatus?esp_id=ESP32_02')  // Incluye el esp_id en la URL
+    fetch('https://intento-final.azurewebsites.net/api/getledstatus?esp_id=ESP32_02')  // Incluye el esp_id en la URL
         .then(response => response.json())
         .then(data => {
             console.log("Estado de los LEDs:", data); // Verificar estado de los LEDs en la consola
@@ -49,7 +49,7 @@ function actualizarEstado() {
 // Función para cambiar el estado de los LEDs cuando se activa el interruptor
 function toggleLED(ledNumber) {
     const ledState = document.getElementById(`led${ledNumber}-switch`).checked;  // true o false
-    fetch('http://intento-final.azurewebsites.net/api/updateled', {
+    fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `esp_id=ESP32_02&led${ledNumber}_status=${ledState}`  // Asegúrate de incluir el esp_id y el led que se va a actualizar
