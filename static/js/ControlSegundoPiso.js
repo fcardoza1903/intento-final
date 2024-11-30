@@ -41,10 +41,9 @@ function actualizarEstado() {
         });
 }
 
-
 // Función para cambiar el estado de un LED
 function toggleLED(ledNumber) {
-    const ledState = document.getElementById(`led${ledNumber}-switch`).checked ? 1 : 0;
+    const ledState = document.getElementById(`led${ledNumber}-switch`).checked;
     fetch('https://intento-final.azurewebsites.net/api/updateled', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,14 +55,16 @@ function toggleLED(ledNumber) {
     .then(response => {
         if (response.ok) {
             console.log(`Estado del LED ${ledNumber} actualizado`);
-            document.getElementById(`led${ledNumber}-status`).innerText = ledState === true ? `LED ${ledNumber} encendido` : `LED ${ledNumber} apagado`;
+            document.getElementById(`led${ledNumber}-status-text`).innerText = ledState ? `LED ${ledNumber} encendido` : `LED ${ledNumber} apagado`;
         } else {
-            console.error(`Error al actualizar el estado del LED ${ledNumber}`);
+            response.text().then(errorText => {
+                console.error(`Error al actualizar el estado del LED ${ledNumber}: ${errorText}`);
+            });
         }
     })
     .catch(error => {
         console.error(`Error al cambiar el estado del LED ${ledNumber}:`, error);
-        document.getElementById(`led${ledNumber}-status`).innerText = `Error al actualizar el LED ${ledNumber}`;
+        document.getElementById(`led${ledNumber}-status-text`).innerText = `Error al actualizar el LED ${ledNumber}`;
     });
 }
 
