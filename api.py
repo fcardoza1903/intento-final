@@ -221,6 +221,7 @@ def get_led_status():
 
         if result:
             result_dict = dict(zip(columns, result))
+            print("Respuesta JSON enviada:", result_dict)
             return jsonify(result_dict)
         else:
             return jsonify({"error": "No hay datos para el esp_id proporcionado"}), 200
