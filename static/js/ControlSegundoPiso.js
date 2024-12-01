@@ -71,7 +71,7 @@ function toggleLED(ledNumber) {
 // Configuración de eventos y actualización inicial al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
     actualizarEstado(); // Actualizar estado al cargar la página
-    setInterval(actualizarEstado, 1000); // Actualizar cada 5 segundos
+    setInterval(actualizarEstado, 500); // Actualizar cada 5 segundos
 
     // Configurar eventos de los switches de LEDs
     for (let i = 5; i <= 10; i++) {
