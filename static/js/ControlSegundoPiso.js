@@ -11,7 +11,7 @@ function actualizarEstado() {
             document.getElementById('pir1-status').innerText = pir1Status || "Dato no disponible";
 
             // Actualizar estado del metal detectado
-            const ldr1Status = data.ldr1_status === true ? "LUZ" : "NO LUZ";
+            const ldr1Status = data.ldr1_status === true ? "NO LUZ" : "LUZ";
             document.getElementById('ldr1-status').innerText = ldr1Status || "Dato no disponible";
         })
         .catch(error => {
