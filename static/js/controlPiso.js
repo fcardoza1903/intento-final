@@ -7,20 +7,20 @@ function actualizarEstado() {
             console.log("Datos obtenidos:", data);
 
             // Actualizar estado del PIR
-            const pirStatus = data.pir_status === 1 ? 'Movimiento detectado' : 'No se detecta movimiento';
-            actualizarSensorEstado('pir-status', pirStatus, data.pir_status === 1 ? 'green' : 'gray');
+            const pirStatus = data.pir_status === true ? 'Movimiento detectado' : 'No se detecta movimiento';
+            actualizarSensorEstado('pir-status', pirStatus, data.pir_status === true ? 'green' : 'gray');
 
             // Actualizar estado del LDR
-            const ldrStatus = data.ldr_status === 1 ? 'Luz detectada' : 'Oscuridad detectada';
-            actualizarSensorEstado('ldr-status', ldrStatus, data.ldr_status === 1 ? 'yellow' : 'gray');
+            const ldrStatus = data.ldr_status === true ? 'Luz detectada' : 'Oscuridad detectada';
+            actualizarSensorEstado('ldr-status', ldrStatus, data.ldr_status === true ? 'yellow' : 'gray');
 
             // Actualizar estado del sensor de metal
-            const metalStatus = data.metal_detectado === 1 ? 'Metal detectado' : 'No se detecta metal';
-            actualizarSensorEstado('metal-status', metalStatus, data.metal_detectado === 1 ? 'orange' : 'gray');
+            const metalStatus = data.metal_detectado === true ? 'Metal detectado' : 'No se detecta metal';
+            actualizarSensorEstado('metal-status', metalStatus, data.metal_detectado === true ? 'orange' : 'gray');
 
             // Actualizar estado del sensor de humedad
-            const waterStatus = data.nivel_agua === 1 ? 'Humedad detectada' : 'Suelo seco';
-            actualizarSensorEstado('water-status', waterStatus, data.nivel_agua === 1 ? 'blue' : 'gray');
+            const waterStatus = data.nivel_agua === true ? 'Humedad detectada' : 'Suelo seco';
+            actualizarSensorEstado('water-status', waterStatus, data.nivel_agua === true ? 'blue' : 'gray');
 
             // Actualizar estado del sensor de temperatura
             const tempStatus = `Temperatura: ${data.temperatura || 'Cargando...'} °C`;
@@ -68,8 +68,8 @@ function mostrarErrorSensores(sensorIds) {
 function actualizarLEDStatus(ledId, status) {
     const ledSwitch = document.getElementById(`${ledId}-switch`);
     const ledStatusText = document.getElementById(`${ledId}-status-text`);
-    ledSwitch.checked = status === 1;
-    ledStatusText.innerText = status === 1 ? 'Encendido' : 'Apagado';
+    ledSwitch.checked = status === true;
+    ledStatusText.innerText = status === true ? 'Encendido' : 'Apagado';
 }
 
 // Función para mostrar error en los LEDs
@@ -93,7 +93,7 @@ function toggleLED(ledId) {
         .then(response => {
             if (response.ok) {
                 console.log(`Estado de ${ledId} actualizado`);
-                document.getElementById(`${ledId}-status-text`).innerText = estado === 1 ? 'Encendido' : 'Apagado';
+                document.getElementById(`${ledId}-status-text`).innerText = estado === true ? 'Encendido' : 'Apagado';
             } else {
                 console.error(`Error al actualizar el estado de ${ledId}`);
             }
