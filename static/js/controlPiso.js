@@ -47,12 +47,18 @@ function actualizarEstado() {
                 document.getElementById(`led${i}-switch`).checked = ledStatus;
                 document.getElementById(`led${i}-status-text`).innerText = ledStatus ? `LED ${i} encendido` : `LED ${i} apagado`;
             }
+            
+            // Actualizar LED 10
+            const led10Status = data.led10_status === true;
+            document.getElementById('led10-switch').checked = led10Status;
+            document.getElementById('led10-status-text').innerText = led10Status ? "LED 10 encendido" : "LED 10 apagado";
         })
         .catch(error => {
             console.error("Error al obtener el estado de los LEDs:", error);
             for (let i = 1; i <= 4; i++) {
                 document.getElementById(`led${i}-status-text`).innerText = 'Error al cargar';
             }
+            document.getElementById('led10-status-text').innerText = 'Error al cargar';
         });
 }
 
@@ -94,4 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleLED(i);
         });
     }
+
+    // Configurar evento para LED 10
+    document.getElementById('led10-switch').addEventListener('change', function () {
+        toggleLED(10);
+    });
 });
