@@ -1,7 +1,7 @@
-// Función para actualizar el estado de los sensores (nivel de agua, metal detectado) y los LEDs
+// Función para actualizar el estado de los sensores (nivel de agua, metal detectado, temperatura) y los LEDs
 function actualizarEstado() {
     // Obtener estado de los sensores
-    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')
+    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_01')
         .then(response => response.json())
         .then(data => {
             console.log("Datos obtenidos de los sensores:", data);
@@ -10,14 +10,29 @@ function actualizarEstado() {
             const pirStatus = data.pir_status === true ? "MOVIMIENTO" : "NO MOVIMIENTO";
             document.getElementById('pir-status').innerText = pirStatus || "Dato no disponible";
 
-            // Actualizar estado del metal detectado
+            // Actualizar estado del LDR (detector de luz)
             const ldrStatus = data.ldr_status === true ? "NO LUZ" : "LUZ";
             document.getElementById('ldr-status').innerText = ldrStatus || "Dato no disponible";
+
+            // Actualizar estado del metal detectado
+            const metalDetectado = data.metal_detectado === true ? "Metal Detectado" : "Sin Metal";
+            document.getElementById('metal-status').innerText = metalDetectado || "Dato no disponible";
+
+            // Actualizar temperatura
+            const temperatura = data.temperatura !== undefined ? `${data.temperatura} °C` : "Dato no disponible";
+            document.getElementById('temperatura-status').innerText = temperatura || "Dato no disponible";
+
+            // Actualizar estado del nivel de agua
+            const nivelAgua = data.nivel_agua !== undefined ? `${data.nivel_agua} m` : "Dato no disponible";
+            document.getElementById('nivel-agua-status').innerText = nivelAgua || "Dato no disponible";
         })
         .catch(error => {
             console.error("Error al obtener el estado del sensor:", error);
             document.getElementById('pir-status').innerText = 'Error al cargar';
             document.getElementById('ldr-status').innerText = 'Error al cargar';
+            document.getElementById('metal-status').innerText = 'Error al cargar';
+            document.getElementById('temperatura-status').innerText = 'Error al cargar';
+            document.getElementById('nivel-agua-status').innerText = 'Error al cargar';
         });
 
     // Obtener estado de los LEDs
