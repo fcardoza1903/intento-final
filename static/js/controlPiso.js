@@ -18,17 +18,13 @@ function actualizarEstado() {
             const metalStatus = data.metal_detectado === true ? 'Metal detectado' : 'No se detecta metal';
             actualizarSensorEstado('metal-status', metalStatus, data.metal_detectado === true ? 'orange' : 'gray');
 
-            // Actualizar estado del sensor de humedad
-            const waterStatus = data.nivel_agua === true ? 'Humedad detectada' : 'Suelo seco';
-            actualizarSensorEstado('water-status', waterStatus, data.nivel_agua === true ? 'blue' : 'gray');
-
             // Actualizar estado del sensor de temperatura
             const tempStatus = `Temperatura: ${data.temperatura || 'Cargando...'} °C`;
             actualizarSensorEstado('temp-status', tempStatus, 'lightblue');
         })
         .catch(error => {
             console.error("Error al obtener el estado de los sensores:", error);
-            mostrarErrorSensores(['pir-status', 'ldr-status', 'metal-status', 'water-status', 'temp-status']);
+            mostrarErrorSensores(['pir-status', 'ldr-status', 'metal-status', 'temp-status']);
         });
 
     // Obtener el estado actual de los LEDs desde la API
