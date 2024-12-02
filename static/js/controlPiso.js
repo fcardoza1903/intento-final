@@ -1,38 +1,23 @@
 // Función para actualizar el estado de los sensores (nivel de agua, metal detectado) y los LEDs
 function actualizarEstado() {
     // Obtener estado de los sensores
-    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_01')
+    fetch('https://intento-final.azurewebsites.net/api/getlateststatus?esp_id=ESP32_02')
         .then(response => response.json())
         .then(data => {
             console.log("Datos obtenidos de los sensores:", data);
 
-            // Actualizar estado del sensor PIR1 (Movimiento)
-            const pir1Status = data.pir_status === true ? "MOVIMIENTO" : "NO MOVIMIENTO";
+            // Actualizar estado del nivel de agua
+            const pirStatus = data.pir_status === true ? "MOVIMIENTO" : "NO MOVIMIENTO";
             document.getElementById('pir-status').innerText = pirStatus || "Dato no disponible";
 
-            // Actualizar estado del sensor LDR1 (Luz)
-            const ldr1Status = data.ldr_status === true ? "NO LUZ" : "LUZ";
+            // Actualizar estado del metal detectado
+            const ldrStatus = data.ldr_status === true ? "NO LUZ" : "LUZ";
             document.getElementById('ldr-status').innerText = ldrStatus || "Dato no disponible";
-
-            // Actualizar estado del sensor de metal detectado
-            const metalStatus = data.metal_detectado === true ? "METAL DETECTADO" : "NO METAL";
-            document.getElementById('metal-status').innerText = metalStatus || "Dato no disponible";
-
-            // Actualizar estado del nivel de agua
-            const waterStatus = data.nivel_agua ? `Nivel de agua: ${data.nivel_agua}` : "Nivel de agua no disponible";
-            document.getElementById('water-status').innerText = waterStatus || "Dato no disponible";
-
-            // Actualizar estado de la temperatura
-            const tempStatus = data.temperatura ? `Temperatura: ${data.temperatura}°C` : "Temperatura no disponible";
-            document.getElementById('temp-status').innerText = tempStatus || "Dato no disponible";
         })
         .catch(error => {
             console.error("Error al obtener el estado del sensor:", error);
             document.getElementById('pir-status').innerText = 'Error al cargar';
             document.getElementById('ldr-status').innerText = 'Error al cargar';
-            document.getElementById('metal-status').innerText = 'Error al cargar';
-            document.getElementById('water-status').innerText = 'Error al cargar';
-            document.getElementById('temp-status').innerText = 'Error al cargar';
         });
 
     // Obtener estado de los LEDs
@@ -42,7 +27,7 @@ function actualizarEstado() {
             console.log("Estado de los LEDs:", data);
 
             // Actualizar estado de los LEDs de forma dinámica
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 4; i++) {
                 const ledStatus = data[`led${i}_status`] === true;
                 document.getElementById(`led${i}-switch`).checked = ledStatus;
                 document.getElementById(`led${i}-status-text`).innerText = ledStatus ? `LED ${i} encendido` : `LED ${i} apagado`;
@@ -50,7 +35,7 @@ function actualizarEstado() {
         })
         .catch(error => {
             console.error("Error al obtener el estado de los LEDs:", error);
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 4; i++) {
                 document.getElementById(`led${i}-status-text`).innerText = 'Error al cargar';
             }
         });
@@ -89,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(actualizarEstado, 500); // Actualizar cada 5 segundos
 
     // Configurar eventos de los switches de LEDs
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 4; i++) {
         document.getElementById(`led${i}-switch`).addEventListener('change', function () {
             toggleLED(i);
         });
