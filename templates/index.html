@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <title>IOT-FIEE</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="../static/img/ICONO_FIEE.png" type="image/png">
-
+    <meta charset="UTF-8">
+    <title>AdminLTE 2 | Primer Piso Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Bootstrap 3.3.2 -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -18,142 +22,145 @@
     <!-- AdminLTE Theme -->
     <link href="../static/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <link href="../static/css/_all-skins.min.css" rel="stylesheet" type="text/css" />
-
     <style>
         body {
-            background-color: #ecf0f5; /* Color inicial del fondo */
-            color: #333333; /* Gris oscuro para el texto */
+            background-color: #f4f6f9;
+            color: #333;
         }
 
-        .main-header .logo {
-            background-color: #3c8dbc; /* Azul original */
-            color: #ffffff;
-        }
-
+        .main-header .logo,
         .main-header .navbar {
-            background-color: #3c8dbc; /* Azul original */
-        }
-
-        .sidebar {
-            background-color: #222d32; /* Gris oscuro original */
-        }
-
-        .sidebar-menu > li.header {
-            color: #ffffff;
-            background-color: #1a2226; /* Gris muy oscuro */
+            background-color: #3c8dbc;
+            color: #fff;
         }
 
         .content-wrapper {
-            background-color: #ecf0f5; /* Color inicial del fondo */
+            padding: 20px;
         }
 
-        .box-primary {
-            border-top-color: #3c8dbc; /* Azul original */
+        .sidebar {
+            background-color: #222d32;
+            color: #fff;
         }
 
-        .btn-default {
-            background-color: #d2d6de; /* Gris claro */
-            color: #444;
-            font-size: 1em; /* Tamaño de fuente original */
-            padding: 6px 12px; /* Tamaño de botón original */
+        .sidebar-menu li a {
+            color: #b8c7ce;
         }
 
-        .user-panel > .info > a {
-            color: #ffffff;
-        }
-
-        .navbar-custom-menu .nav > li > a {
-            color: #ffffff;
-        }
-
-        .sidebar-menu li.active > a {
-            background-color: #1e282c; /* Azul oscuro original */
-            color: #ffffff;
-        }
-
-        .sidebar-menu li > a:hover {
+        .sidebar-menu li a:hover {
             background-color: #1e282c;
-            color: #ffffff;
         }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 28px;
+        .summary-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+            padding: 20px;
         }
 
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 28px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #3c8dbc; /* Azul original */
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(32px);
-        }
-
-        /* Ajustes para los componentes del sensor */
-        .control-section {
-            margin: 20px 0;
-        }
-
-        .control-box {
+        .box {
+            display: flex; /* Activar flexbox */
+            flex-direction: column; /* Alinear en columna */
+            justify-content: center; /* Centrado vertical */
+            align-items: center; /* Centrado horizontal */
+            background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            text-align: center;
+            flex: 1 1 300px;
+            margin: 10px;
         }
 
-        .control-box h4 {
+        .box h4 {
+            margin-bottom: 10px;
             font-weight: bold;
-            margin-bottom: 15px;
         }
 
-        #pir-status,
-        #ldr-status {
-            background-color: #3c8dbc; /* Azul original */
-            color: #ffffff;
-            font-size: 1.2em;
-            padding: 10px;
+        .led-status {
+            font-size: 2em;
         }
+        .pir-neutral {
+         background-color: #f4f4f4; /* Color neutro mientras carga */
+        color: black;
+        }
+
+        .pir-active {
+            background-color: #1d7fff; /* Azul para movimiento */
+            color: white;
+        }
+
+        .pir-inactive {
+            background-color: #8f8c8c; /* Gris para sin movimiento */
+            color: black;
+        }
+
+        .pir-status {
+            font-size: 4em;
+        }
+
+        .box .progress {
+            height: 25px;
+            margin-top: 10px;
+        }
+
+        .box .progress-bar {
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        }
+        
+        .leds-summary {
+        background-color: #00000060;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .led-status-container {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        }
+        
+        .water-low {
+            background-color: #FF6347; /* Rojo o naranja para nivel de agua bajo */
+            color: white;
+        }
+
+        .water-high {
+            background-color: #4CAF50; /* Verde para nivel de agua alto */
+            color: white;
+        }
+
+        .water-neutral {
+            background-color: #f4f4f4; /* Color neutro mientras carga */
+            color: black;
+        }
+
+        .door-open {
+            background-color: #FF6347; /* Rojo para puerta abierta */
+            color: white;
+        }
+
+        .door-closed {
+            background-color: #4CAF50; /* Verde para puerta cerrada */
+            color: white;
+        }
+
+
+      
     </style>
 </head>
+<body class="hold-transition skin-blue sidebar-mini">
 
-<body class="skin-blue">
+  <body class="skin-blue">
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
-            <a href="https://intento-final.azurewebsites.net/inicio" class="logo"><b>Domótica</b>FIEE</a>
+            <a href="../templates/index2.html" class="logo"><b>Domótica</b>FIEE</a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Botón para mostrar/ocultar el menú lateral -->
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -172,7 +179,7 @@
                                 <li class="header">Tienes 10 notificaciones</li>
                                 <li>
                                     <ul class="menu">
-                                        <li><a href="#"><i class="fa fa-users text-aqua"></i> 5 nuevos miembros hoy</a></li>
+                                        <li><a href="#"><i class="fa fa-shoe-prints text-aqua"></i> 5 nuevos miembros hoy</a></li>
                                         <!-- Más ejemplos de notificaciones -->
                                     </ul>
                                 </li>
@@ -230,20 +237,19 @@
                 <!-- Menú lateral -->
                 <ul class="sidebar-menu">
                     <li class="header">NAVEGACIÓN PRINCIPAL</li>
-                    <li><a href="https://intento-finale.azurewebsites.net/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                    <li><a href="../templates/index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                     <li class="treeview active">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i> <span>Pisos</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active"><a href="https://intento-final.azurewebsites.net/PrimerPiso"><i class="fa fa-circle-o"></i>Primer Piso</a></li>
-                            <li><a href="https://intento-final.azurewebsites.net/SegundoPiso"><i class="fa fa-circle-o"></i>Segundo Piso</a></li>
-                            <li><a href="https://intento-final.azurewebsites.net/TercerPiso"><i class="fa fa-circle-o"></i>Tercer Piso</a></li>
-                            <li><a href="https://intento-final.azurewebsites.net/CuartoPiso"><i class="fa fa-circle-o"></i>Cuarto Piso</a></li>
+                            <li class="active"><a href="PrimerPiso.html"><i class="fa fa-circle-o"></i>Primer Piso</a></li>
+                            <li><a href="SegundoPiso.html"><i class="fa fa-circle-o"></i>Segundo Piso</a></li>
+                            <li><a href="TercerPiso.html"><i class="fa fa-circle-o"></i>Tercer Piso</a></li>
                         </ul>
                     </li>
-                    <li><a href="https://intento-final.azurewebsites.net/Escenas"><i class="fa fa-laptop"></i> <span>Escenas</span></a></li>
-                    <li><a href="https://intento-final.azurewebsites.net/calendar.html"><i class="fa fa-calendar"></i> <span>Calendario</span><small class="label pull-right bg-red">3</small></a></li>
+                    <li><a href="../templates/Escenas.html"><i class="fa fa-laptop"></i> <span>Escenas</span></a></li>
+                    <li><a href="../calendar.html"><i class="fa fa-calendar"></i> <span>Calendario</span><small class="label pull-right bg-red">3</small></a></li>
                     <li class="header">ETIQUETAS</li>
                     <li><a href="#"><i class="fa fa-circle-o text-danger"></i>Importante</a></li>
                     <li><a href="#"><i class="fa fa-circle-o text-warning"></i>Urgente</a></li>
@@ -252,60 +258,63 @@
             </section>
         </aside>
 
+
         <!-- Content Wrapper -->
         <div class="content-wrapper">
             <section class="content-header">
-                <h1>Control del Primer Piso</h1>
+                <h1>RESUMEN DE ESTADO</h1>
             </section>
 
-            <!-- Main content -->
             <section class="content">
-                <!-- Cuadro principal para controlar el LED y sensores -->
-                <div class="control-section">
-                    <!-- Control del LED -->
-                    <div class="control-box">
-                        <h4>Control del LED</h4>
-                        <label class="switch">
-                            <input type="checkbox" id="led-switch">
-                            <span class="slider round"></span>
-                        </label>
-                        <p id="led-status-text" style="font-size: 1.2em;">Estado del LED: Cargando...</p>
+                <!-- Cuadro para monmitorear estado de LEDs -->
+                <div class="summary-box">
+                  <div class="box leds-summary">
+                    <h4>ILUMINACIÓN</h4>
+                    <div class="led-status-container">
+                        <div class="box led-on">
+                            <h5>LEDS ON</h5>
+                            <i class="fa fa-lightbulb-o led-status" style="color: yellow;"></i>
+                            <p id="ledON-total-text" style="font-size: 1.2em;">Cargando...</p>
+                        </div>
+                        <div class="box led-off">
+                            <h5>LEDS OFF</h5>
+                            <i class="fa fa-lightbulb-o led-status" style="color: gray;"></i>
+                            <p id="ledOFF-total-text" style="font-size: 1.2em;">Cargando...</p>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Resumen de Sensores PIR -->
+                    <div class="box" id="pir-status-box">
+                        <h4>Detección de Movimiento</h4>
+                        <i class="fa-solid fa-shoe-prints pir-status" id="pir-icon" style="color: black;"></i>
+                        <p id="pir-status-text" style="font-size: 1.2em;">Cargando...</p>
                     </div>
 
-                    <!-- Estado del PIR -->
-                    <div class="control-box">
-                        <h4>Sensor PIR</h4>
-                        <div id="pir-status" style="height: 100px; line-height: 100px;">Cargando...</div>
+                    <!-- Resumen de Nivel de Agua -->
+                    <!-- Box neutro del jardín -->
+                    <div class="box" id="garden-status-box">
+                        <h4>Estado del Jardín</h4>
+                        <i class="fa fa-spinner fa-spin" id="garden-icon"></i> <!-- Icono inicial (cargando) -->
+                        <p id="garden-status-text" style="font-size: 1.2em;">Cargando...</p>
                     </div>
 
-                    <!-- Estado del LDR -->
-                    <div class="control-box">
-                        <h4>Sensor LDR</h4>
-                        <div id="ldr-status" style="height: 100px; line-height: 100px;">Cargando...</div>
+
+                    <!-- Estado de la Puerta -->
+                    <div class="box" id="door-status-box">
+                        <h4 id="door-status-title">Estado de la Puerta</h4>
+                        <i class="fa fa-spinner fa-spin" id="door-icon"></i> <!-- Ícono inicial de carga -->
+                        <p id="door-status-text" style="font-size: 1.2em;">Cargando...</p>
                     </div>
+
                 </div>
             </section>
         </div>
 
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Versión</b> 2.0
-            </div>
-            <strong>Copyright &copy; 2014-2015 <a href="https://almsaeedstudio.com">Almsaeed Studio</a>.</strong> Todos los derechos reservados.
-        </footer>
     </div>
 
-    <!-- jQuery -->
-    <script src="../plugins/jQuery/jQuery-2.1.3.min.js"></script>
-
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../static/js/bootstrap.min.js"></script>
-
-    <!-- AdminLTE App -->
-    <script src="../static/js/app.min.js"></script>
-
-    <!-- Lógica personalizada -->
-    <script src="../static/js/controlPiso.js"></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
