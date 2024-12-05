@@ -7,19 +7,19 @@ function actualizarEstado() {
             console.log("Datos obtenidos de los sensores:", data);
 
             // Actualizar estado del nivel de agua
-            const pirStatus = data.pir_status === true ? "MOVIMIENTO" : "NO MOVIMIENTO";
+            const pirStatus = data.pir_status === true ? "MOVIMIENTO DETECTADO" : "MOVIMIENTO NO DETECTADO";
             document.getElementById('pir-status').innerText = pirStatus || "Dato no disponible";
 
             // Actualizar estado del LDR (detector de luz)
             const ldrStatus = data.ldr_status === true ? "NO LUZ" : "LUZ";
-            document.getElementById('ldr-status').innerText = ldrStatus || "Dato no disponible";
+            document.getElementById('ldr-status').innerText = ldrStatus || "SIN INFORMACION";
 
             // Actualizar estado del metal detectado
-            const metalDetectado = data.metal_detectado === true ? "Metal Detectado" : "Sin Metal";
+            const metalDetectado = data.metal_detectado === true ? "PRESENCIA EN ENTRADA PRINCIOAK" : "ENTRADA PRINCIPAL LIBRE";
             document.getElementById('metal-status').innerText = metalDetectado || "Dato no disponible";
 
             // Actualizar temperatura
-            const temperatura = data.temperatura !== undefined ? `${data.temperatura} °C` : "Dato no disponible";
+            const temperatura = data.temperatura !== undefined ? `${data.temperatura} °C` : "SIN INFORMACION DE TEMPERATURA";
             document.getElementById('temperatura-status').innerText = temperatura || "Dato no disponible";
 
             // Actualizar estado del nivel de agua
